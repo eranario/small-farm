@@ -1,0 +1,46 @@
+<html>
+
+    <head>
+        <!-- Styles/Formatting for each class given -->
+        <style>
+            .heading {color:blue; font-size:50px;}
+            .para {font-size:30px;}
+            .data {font-size:20px;}
+            .buttonR {font-size:20px;background-color: green;}
+            .buttonO {font-size:20px;background-color: Red;}
+        </style>
+    </head>
+    
+    <body>
+        <div align="center">
+            <h1 class="heading">HUMIDITY AND TEMPERATURE</h1>
+            <p class="para">Output of CM2302 humidity (%RH) and temperature (F) values</p>
+
+            <!-- Data -->
+            <data class="data">Temperature = &nbsp</data>
+            <data id="d01" class="data">Start T</data>
+            <data class="data"> &nbsp Fahrenheit</data>
+                <br>
+            <data class="data">Humidity = &nbsp</data>
+            <data id="d02" class=data>Start RH</data> 
+            <data class="data"> &nbsp %</data>
+                <br>
+
+            <!-- Generate Button -->
+            <button class="button buttonR" onclick="getFromMCU()">Generate</button>    
+            <button class="button buttonO" onclick="getFromMCU()">Stop</button>                                                                                                                                                                                                                                                              
+        </div>
+    </body>
+
+    <script>
+        var myTimer = setInterval(getFromMcu,3000);
+
+        function useMcuReply(response)
+        {
+        var val = document.getElementById("value");
+        val.innerHTML = "Value: " + response;
+        }
+
+    </script>
+
+</html>

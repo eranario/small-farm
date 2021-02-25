@@ -1,102 +1,204 @@
-<!DOCTYPE HTML>
-<html>
-  <head>
-    <!-- This is an HTML comment -->
-    <style>
-      /*CSS comments are different from HTML comments*/
-      .data{font-family:Arial; font-size:3vw;}
-      
-      .button{font-size:5vw; padding: 2vh; margin: 0.5vh;}
-
-      .buttonR {background-color: red;}
-      .buttonO {background-color: black; color:white;}
-      
-    </style>
-  </head>
-  
-  <body bgcolor=lavender>
-
-    <div align="center">
-      <font face="Arial" size=6vw color="red">Hi! I'm AggieBot! :)</font>
-      <br>
-
-      <data class=data>Weight= &nbsp</data>
-      <data id="d01" class=data>Start Wt</data> 
-      <data class=data> &nbsp grams</data>
-           <br>
-
-      <data class=data>Temperature= &nbsp</data>
-      <data id="d02" class=data>Start T</data> 
-      <data class=data> &nbsp Fahrenheit</data>
-           <br>
-      <data class=data>Relative Humidity= &nbsp</data>
-      <data id="d03" class=data>Start RH</data> 
-      <data class=data> &nbsp %</data>
-           <br>
-
-       <button class="button buttonR" onclick="myBtns('R');">...ON...</button>
-           <br>
-	   
-      <button class="button buttonO" onclick="myBtns('O');">...OFF..</button>
-	   <br>
-      
-    </div>
-  </body>
-  
-  <script>
-
-     var interval = 2000;
-     var myTimer = setInterval(getFromMcu, interval);
-    
-    
-    function myBtns(button) 
-    {
-	httpPost("/bot", "go=" + button);
-    }
-
-    function httpPost(path, param)
-    {
-      var req = new XMLHttpRequest();
-      req.open("POST", path, true);
-      req.setRequestHeader("Content-type",
-      "application/x-www-form-urlencoded");
-      req.send(param);
-    }
-
-      function useMcuReply(response)
-      {
-          var res = response.split(",");
-          document.getElementById("d01").innerHTML = res[0];
-          document.getElementById("d02").innerHTML = res[1];
-          document.getElementById("d03").innerHTML = res[2];
-
-       /* .charAt(0) gets the 1st character */
-       /* .charAt(1) gets the 2nd character */
-      }
-
-       function getFromMcu()
-      {
-        httpGet("/bot", useMcuReply);
-      }
-
-      function httpGet(path, callback)
-      {
-        var req = new XMLHttpRequest();
-        req.open("GET", path, true); 
-        req.onreadystatechange = function() 
-        { 
-          if (req.readyState == 4)
-              if(req.status == 200)
-	    {
-		callback(req.responseText);
-	    }
-            else
-	    {
-		callback("Waiting...");
-	    }
-        }
-        req.send(null);
-      }
-   
-  </script>
-<html>
+<!DOCTYPE HTML>
+
+<html>
+
+  <head>
+
+    <!-- This is an HTML comment -->
+
+    <style>
+
+      /*CSS comments are different from HTML comments*/
+
+      .data{font-family:Arial; font-size:3vw;}
+
+      
+
+      .button{font-size:5vw; padding: 2vh; margin: 0.5vh;}
+
+
+
+      .buttonR {background-color: red;}
+
+      .buttonO {background-color: black; color:white;}
+
+      
+
+    </style>
+
+  </head>
+
+  
+
+  <body bgcolor=lavender>
+
+
+
+    <div align="center">
+
+      <font face="Arial" size=6vw color="red">Hi! I'm AggieBot! :)</font>
+
+      <br>
+
+
+
+      <data class=data>Weight= &nbsp</data>
+
+      <data id="d01" class=data>Start Wt</data> 
+
+      <data class=data> &nbsp grams</data>
+
+           <br>
+
+
+
+      <data class=data>Temperature= &nbsp</data>
+
+      <data id="d02" class=data>Start T</data> 
+ 
+      <data class=data> &nbsp Fahrenheit</data>
+
+           <br>
+
+      <data class=data>Relative Humidity= &nbsp</data>
+
+      <data id="d03" class=data>Start RH</data> 
+
+      <data class=data> &nbsp %</data>
+
+           <br>
+
+
+
+       <button class="button buttonR" onclick="myBtns('R');">...ON...</button>
+
+           <br>
+
+	   
+
+      <button class="button buttonO" onclick="myBtns('O');">...OFF..</button>
+
+	   <br>
+
+      
+
+    </div>
+
+  </body>
+
+  
+
+  <script>
+
+
+
+     var interval = 2000;
+
+     var myTimer = setInterval(getFromMcu, interval);
+
+    
+
+    
+
+    function myBtns(button) 
+
+    {
+
+	httpPost("/bot", "go=" + button);
+
+    }
+
+
+
+    function httpPost(path, param)
+
+    {
+
+      var req = new XMLHttpRequest();
+
+      req.open("POST", path, true);
+
+      req.setRequestHeader("Content-type",
+
+      "application/x-www-form-urlencoded");
+
+      req.send(param);
+
+    }
+
+
+
+      function useMcuReply(response)
+
+      {
+
+          var res = response.split(",");
+
+          document.getElementById("d01").innerHTML = res[0];
+
+          document.getElementById("d02").innerHTML = res[1];
+
+          document.getElementById("d03").innerHTML = res[2];
+
+
+
+       /* .charAt(0) gets the 1st character */
+
+       /* .charAt(1) gets the 2nd character */
+
+      }
+
+
+
+       function getFromMcu()
+
+      {
+
+        httpGet("/bot", useMcuReply);
+
+      }
+
+
+
+      function httpGet(path, callback)
+
+      {
+
+        var req = new XMLHttpRequest();
+
+        req.open("GET", path, true); 
+
+        req.onreadystatechange = function() 
+
+        { 
+
+          if (req.readyState == 4)
+
+              if(req.status == 200)
+
+	    {
+
+		callback(req.responseText);
+
+	    }
+
+            else
+
+	    {
+
+		callback("Waiting...");
+
+	    }
+
+        }
+
+        req.send(null);
+
+      }
+
+   
+
+  </script>
+
+<html>
+
