@@ -28,6 +28,7 @@
 
             <!-- Generate Button -->
             <button class="button buttonR" onclick="getFromMCU()">Generate</button>    
+                <br>
             <button class="button buttonO" onclick="getFromMCU()">Stop</button>                                                                                                                                                                                                                                                              
         </div>
     </body>
@@ -37,8 +38,29 @@
 
         function useMcuReply(response)
         {
-        var val = document.getElementById("value");
-        val.innerHTML = "Value: " + response;
+            var res = response.split(",")
+            document.getElementById("d01").innerHTML = res[0];
+            document.getElementById("d02").innerHTML = res[1];
+        }
+
+        function getFromMcu()
+        {
+            httpGet("/tpfm",useMcuReply);
+        }
+
+        function httpGet(path,callback)
+        {
+            var req = new XMLHttpRequest();
+            req.open("GET", path, true);
+            req.onreadystatechange = function()
+            {
+                if (req.readyState == 4)
+                    if (req.status == 200)
+                        callback(req.responseText);
+                    else
+                        callback("Waiting..."):
+            }
+            req.send(null)
         }
 
     </script>
