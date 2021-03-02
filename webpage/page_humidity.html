@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 
     <head>
@@ -27,9 +28,9 @@
                 <br>
 
             <!-- Generate Button -->
-            <button class="button buttonR" onclick="getFromMCU()">Generate</button>    
+            <button class="buttonR" onclick="getFromMCU()">Generate</button>    
                 <br>
-            <button class="button buttonO" onclick="getFromMCU()">Stop</button>                                                                                                                                                                                                                                                              
+            <button class="buttonO" onclick="getFromMCU()">Stop</button>                                                                                                                                                                                                                                                              
         </div>
     </body>
 
@@ -56,9 +57,13 @@
             {
                 if (req.readyState == 4)
                     if (req.status == 200)
+                    {
                         callback(req.responseText);
+                    }
                     else
-                        callback("Waiting..."):
+                    {
+                        callback("Waiting...");
+                    }
             }
             req.send(null)
         }

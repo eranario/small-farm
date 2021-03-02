@@ -37,7 +37,7 @@ int main()
      Humidity = dht22_getHumidity();
      Humidity = (Humidity+5)/10;
      RH_timer = CNT;
-     print("T= %d RH= %d \n", Temperature, Humidity);
+     //print("T= %d RH= %d \n", Temperature, Humidity);
    }
     
    if(CNT - wifi_timer > dt)
