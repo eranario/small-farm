@@ -15,7 +15,7 @@ int getFromPageId;
 int main()
 {
   int wifi_timer = 0, dt = 0, dt2 = 0, RH_timer = 0;
-  int Temperature = 0, Humidity = 0; 
+  int Temperature = 0; 
   
   wifi_start(31,30,115200,WX_ALL_COM);
   
@@ -34,10 +34,8 @@ int main()
      dht22_read(TEMPRH);
      Temperature = dht22_getTemp(FAHRENHEIT);
      Temperature = (Temperature+5)/10;
-     Humidity = dht22_getHumidity();
-     Humidity = (Humidity+5)/10;
      RH_timer = CNT;
-     print("T= %d RH= %d \n", Temperature, Humidity);
+     //print("T= %d\n", Temperature);
    }
     
    if(CNT - wifi_timer > dt)
@@ -49,8 +47,8 @@ int main()
      {
        if(id == getFromPageId)
        {
-         print("Incoming GET request, sending %d,%d\r", Temperature, Humidity);
-         wifi_print(GET, handle, "%d,%d", Temperature, Humidity);
+         print("Incoming GET request, sending %d\n", Temperature);
+         wifi_print(GET, handle, "%d", Temperature);
        }         
      }       
      wifi_timer = CNT;

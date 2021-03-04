@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <!-- Styles/Formatting for each class given -->
+        <style>
+            .heading {color:blue; font-size:50px;}
+            .para {font-size:30px;}
+            .data {font-size:20px;}
+            .buttonR {font-size:20px;background-color: green;}
+            .buttonO {font-size:20px;background-color: Red;}
+        </style>
+    </head>
+    
+    <body>
+        <div align="center">
+            <h1 class="heading">TEMPERATURE</h1>
+            <p class="para">Output of temperature (F) values</p>
+
+            <!-- Data -->
+            <data class="data">Temperature = &nbsp</data>
+            <data id="d01" class="data">Start T</data>
+            <data class="data"> &nbsp Fahrenheit</data>
+                <br>
+
+            <!-- Generate Button -->
+            <button class="buttonR" onclick="getFromMCU()">Generate</button>    
+                <br>
+            <button class="buttonO" onclick="getFromMCU()">Stop</button>                                                                                                                                                                                                                                                              
+        </div>
+    </body>
+
+    <script>
+        var myTimer = setInterval(getFromMcu,3000);
+
+        function useMcuReply(response)
+        {
+            var res = response.split(",")
+            document.getElementById("d01").innerHTML = res[0];
+        }
+
+        function getFromMcu()
+        {
+            httpGet("/tpfm",useMcuReply);
+        }
+
+        function httpGet(path,callback)
+        {
+            var req = new XMLHttpRequest();
+            req.open("GET", path, true);
+            req.onreadystatechange = function()
+            {
+                if (req.readyState == 4)
+                    if (req.status == 200)
+                    {
+                        callback(req.responseText);
+                    }
+                    else
+                    {
+                        callback("Waiting...");
+                    }
+            }
+            req.send(null)
+        }
+
+    </script>
+
+</html>
