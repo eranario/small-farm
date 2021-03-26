@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <!-- Styles/Formatting for each class given -->
+        <style>
+            .heading {color:blue; font-size:50px;}
+            .para {font-size:30px;}
+            .data {font-size:20px;}
+            .buttonR {font-size:20px;background-color: green;}
+            .buttonO {font-size:20px;background-color: Red;}
+        </style>
+    </head>
+    
+    <body>
+        <div align="center">
+            <h1 class="heading">PERISTALTIC PUMP</h1>
+            <p class="para">Output of water per pump.</p>
+
+            <!-- Generate Button -->
+            <button class="buttonR" onclick="myBtns('R')">Pump</button>    
+                <br>
+            <button class="buttonO" onclick="myBtns('O')">Stop</button>                                                                                                                                                                                                                                                              
+        </div>
+    </body>
+
+    <script>
+        var myTimer = setInterval(getFromMcu,3000);
+
+        function myBtns(button)
+        {
+            httpPost("/bot","go=" + button);
+        }
+
+        function httpPost(path,param)
+        {
+            var req = new XMLHttpRequest();
+            req.open("POST",path,true);
+            req.setRequestHeader("Content-type",
+            "application/x-www-form-urlencoded")
+            req.send(param);
+        }
+
+    </script>
+
+</html>
