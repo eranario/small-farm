@@ -9,8 +9,10 @@ and test wifi module along with other peripherals
 #define ACRELAY 12
 #define DCRELAY 13
 
-int event, id, handle;
+//wifi poll variables
+int event = 0, id, handle;
 int getFromPageId;
+char buttonCmd = 0;
 
 int main()
 {
@@ -61,7 +63,7 @@ int main()
                     
                   }                    
                 }
-        case 'G': //HTTP GET
+        //case 'G': //HTTP GET
                   //inset temp_humidity code here                      
      }              
      wifi_timer = CNT;
