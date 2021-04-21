@@ -69,16 +69,41 @@ int main()
      wifi_poll(&event, &id, &handle);
      print("event = %c, id = %d, handle = %d\r", event, id, handle);
      
-     if(event == 'G')
+     switch(event)
      {
-       if(id == getFromPageId)
-       {
-         print("Incoming GET request, sending %d, %d, %d, %d\r", Temperature, Humidity, mass_A, mlevel);
-         //print("Incoming GET request, sending %d\r", Humidity);
-         wifi_print(GET, handle, "%d, %d, %d, %d", Temperature, Humidity, mass_A, mlevel);
-         //wifi_print(GET, handle, "%d", Humidity);
-       }         
-     }       
+       case 'N': //None
+                break;
+       case 'P': //HTTP POST
+                if(id == getFromPageId)
+                {
+                  wifi_scan(POST, handle, "go%c", &buttonCmd); //look for web page button event
+                  print("go=%c \n", buttonCmd); //troubleshooting on Terminal
+                  
+                  if(buttonCmd != 0)
+                  {
+                    
+                    switch(buttonCmd)
+                    {
+                      
+                      case 'R': 
+                                high(DCRELAY);
+                                break;
+                      
+                      case 'O':
+                                low(DCRELAY);
+                                break;
+                    }                        
+                  }                    
+                }
+        case 'G':
+                 if(id == getFromPageId)
+                 {
+                   print("Incoming GET request, sending %d, %d, %d, %.0f\r", Temperature, Humidity, mass_A, mlevel);
+                   wifi_print(GET, handle, "%d, %d, %d, %.0f", Temperature, Humidity, mass_A, mlevel);
+                   
+                   break;
+                 } 
+     }            
      wifi_timer = CNT;
      pause(500);
     }

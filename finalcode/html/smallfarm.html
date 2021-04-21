@@ -36,7 +36,10 @@
             
             <!-- Generate Button -->
             <button class="buttonR" onclick="getFromMCU()">Generate</button>    
-                <br>                                                                                                                                                                                                                                                            
+                <br>
+            <button class="buttonR" onclick="myBtns('R')">Pump</button>    
+                <br>
+            <button class="buttonO" onclick="myBtns('O')">Stop</button>                                                                                                                                                                                                                                                       
         </div>
     </body>
 
@@ -55,6 +58,20 @@
         function getFromMcu()
         {
             httpGet("/bot",useMcuReply);
+        }
+
+        function myBtns(button)
+        {
+            httpPost("/bot","go=" + button);
+        }
+
+        function httpPost(path,param)
+        {
+            var req = new XMLHttpRequest();
+            req.open("POST",path,true);
+            req.setRequestHeader("Content-type",
+            "application/x-www-form-urlencoded")
+            req.send(param);
         }
 
         function httpGet(path,callback)
