@@ -13,21 +13,30 @@
     
     <body>
         <div align="center">
-            <h1 class="heading">Small Farm</h1>
+            <h1 class="heading">SMART FARM by Earl Ranario</h1>
+            <p class="para">Remote sensing and imaging</p>
 
             <!-- Data -->
             <data class="data">Temperature = &nbsp</data>
-            <data id="d01" class="data">Start T</data>
+            <data id="d01" class="data">"Waiting..."</data>
             <data class="data"> &nbsp Fahrenheit</data>
                 <br>
             <data class="data">Humidity = &nbsp</data>
-            <data id="d02" class=data>Start RH</data> 
+            <data id="d02" class=data>"Waiting..."</data> 
             <data class="data"> &nbsp %</data>
                 <br>
-
+            <data class="data">Weight = &nbsp</data>
+            <data id="d03" class="data">"Waiting..."</data>
+            <data class="data"> &nbsp g</data>
+                <br>
+            <data class="data">Moisture level = &nbsp</data>
+            <data id="d04" class="data">"Waiting..."</data>
+            <data class="data"> &nbsp %</data>
+                <br>
+            
             <!-- Generate Button -->
             <button class="buttonR" onclick="getFromMCU()">Generate</button>    
-                <br>                                                                                                                                                                                                                                                          
+                <br>                                                                                                                                                                                                                                                            
         </div>
     </body>
 
@@ -39,11 +48,13 @@
             var res = response.split(",")
             document.getElementById("d01").innerHTML = res[0];
             document.getElementById("d02").innerHTML = res[1];
+            document.getElementById("d03").innerHTML = res[2];
+            document.getElementById("d04").innerHTML = res[3];
         }
 
         function getFromMcu()
         {
-            httpGet("bot",useMcuReply);
+            httpGet("/bot",useMcuReply);
         }
 
         function httpGet(path,callback)
