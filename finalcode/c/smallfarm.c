@@ -7,7 +7,9 @@ and test wifi module along with other peripherals
 #include "wifi.h"
 #include "dht22.h"
 #include "abvolts.h"
+#include "ping.h"
 
+#define PING 2
 #define LOAD_DAT 8
 #define LOAD_CLK 9
 #define LOAD_SLOPE 10
@@ -29,7 +31,7 @@ int main()
 {
   int wifi_timer = 0, dt = 0, dt2 = 0, RH_timer = 0;
   int Temperature = 0, Humidity = 0;
-  float mlevel = 0;
+  float mlevel = 0, height = 0;
   
   //start another core for loadcell
   cogstart(loadcell,NULL,stack,sizeof(stack));
@@ -60,7 +62,9 @@ int main()
      mlevel = (ad_in(0) * 500/4096);
      mlevel = (mlevel/400)*100;
      
-     print("T= %d RH= %d mass = %d moisture = %.0f\n", Temperature, Humidity, mass_A, mlevel);
+     height = ping_inches(PING);
+     
+     print("T= %d RH= %d mass = %d moisture = %.0f height = %.0f\n", Temperature, Humidity, mass_A, mlevel, height);
      
    }
     
@@ -98,8 +102,8 @@ int main()
         case 'G':
                  if(id == getFromPageId)
                  {
-                   print("Incoming GET request, sending %d, %d, %d, %.0f\r", Temperature, Humidity, mass_A, mlevel);
-                   wifi_print(GET, handle, "%d, %d, %d, %.0f", Temperature, Humidity, mass_A, mlevel);
+                   print("Incoming GET request, sending %d, %d, %d, %.0f\r", Temperature, Humidity, mass_A, mlevel, height);
+                   wifi_print(GET, handle, "%d, %d, %d, %.0f", Temperature, Humidity, mass_A, mlevel, height);
                    
                    break;
                  } 
