@@ -99,14 +99,14 @@ int main()
                     }                        
                   }                    
                 }
+                break;
         case 'G':
                  if(id == getFromPageId)
                  {
-                   print("Incoming GET request, sending %d, %d, %d, %.0f\r", Temperature, Humidity, mass_A, mlevel, height);
-                   wifi_print(GET, handle, "%d, %d, %d, %.0f", Temperature, Humidity, mass_A, mlevel, height);
-                   
-                   break;
-                 } 
+                   print("Incoming GET request, sending %d, %d, %d, %.0f, %.0f\r", Temperature, Humidity, mass_A, mlevel, height);
+                   wifi_print(GET, handle, "%d, %d, %d, %.0f, %.0f", Temperature, Humidity, mass_A, mlevel, height);
+                 }
+                 break;
      }            
      wifi_timer = CNT;
      pause(500);
